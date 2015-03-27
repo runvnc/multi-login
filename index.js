@@ -28,12 +28,14 @@ passport.use(new LocalStrategy(
 
 passport.serializeUser(function(user, callback) {
   var configPath = module.exports.configPath;
+  console.log('serializeUser user  is ' + JSON.stringify(user));
   fs.writeFileSync(configPath+"_"+user.id, JSON.stringify(user));
   callback(null, 'config');
 });
 
 passport.deserializeUser(function(id, callback) {
   var configPath = module.exports.configPath;
+  console.log('deserializeUser id is ' + id);
   var user = fs.readFileSync(configPath+"_"+id, 'utf8');
   callback(null, JSON.parse(user));
 });
