@@ -45,10 +45,10 @@ var setPassword = function(user, password) {
   fs.writeFileSync(configPath+"_"+user, hash);
 }
 
-getHash = function(user) {
+getHash = function(useri, cb) {
   var config = module.exports.config;
   var configPath = module.exports.configPath;
-  fs.readFileSync(configPath+"_"+user, hash);  
+  cb(fs.readFileSync(configPath+"_"+user, 'utf8'));  
 }
 
 module.exports.configureAppServer = function(app, config, routes, callback) {
