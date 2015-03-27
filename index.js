@@ -10,7 +10,7 @@ var flash = require('connect-flash');
 
 passport.use(new LocalStrategy(
   function(username, password, callback) {
-    getHash(user, function(hash) {
+    getHash(username, function(hash) {
       bcrypt.compare(password, hash, function(err, res) {
         if(err) {
           callback(err);
@@ -84,7 +84,8 @@ module.exports.configureAppServer = function(app, config, routes, callback) {
   <p>Please give your password to log in:</p> \
   <form action="/login" method="post"> \
     <div> \
-        <input type="hidden" name="username" value="me" /> \
+        <label>User</label>
+        <input type="text" name="username" /> \
         <label>Password:</label> \
         <input type="password" name="password"/> \
     </div> \
