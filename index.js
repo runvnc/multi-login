@@ -45,7 +45,7 @@ var setPassword = function(user, password) {
   fs.writeFileSync(configPath+"_"+user, hash);
 }
 
-getHash = function(useri, cb) {
+getHash = function(user, cb) {
   var config = module.exports.config;
   var configPath = module.exports.configPath;
   cb(fs.readFileSync(configPath+"_"+user, 'utf8'));  
