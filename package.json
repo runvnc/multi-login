@@ -1,0 +1,28 @@
+{
+  "name": "multi-login",
+  "version": "1.0.0",
+  "description": "This enables multi-user authentication and sessions for cozy-light.   This works either by using the set-password command for each user or if the username contains an @ sign checking against the dovecot user. It also installs americano plugins for cozy-light apps to enable multiple user support. (multi-emails, cozydb-multi for emails) Additionally, a login.css will be read from `~/.cozy-light/login/public/css, if found. Uses signed cookies for sessions (see options under cookie-session readme.).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/runvnc/multi-login.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/runvnc/multi-login/issues"
+  },
+  "homepage": "https://github.com/runvnc/multi-login",
+  "dependencies": {
+    "bcryptjs": "^2.1.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.3.4",
+    "cookie-session": "^1.1.0",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "randomstring": "^1.0.3"
+  }
+}

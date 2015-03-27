@@ -11,14 +11,12 @@ var flash = require('connect-flash');
 
 passport.use(new LocalStrategy(
   function(username, password, callback) {
-    console.log(password);
-    console.log(module.exports.hash);
     getHash(user, function(hash) {
       bcrypt.compare(password, hash, function(err, res) {
         if(err) {
           callback(err);
         } else if(res) {
-          callback(null, module.exports.config);
+          callback(null, {user:user});
         } else {
           callback(null, false, { message: 'Wrong password' });
         }
@@ -28,24 +26,28 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function(user, callback) {
+  var configPath = module.exports.configPath;
+  fs.writeFileSync(configPath+"_"+user.id, JSON.stringify(user));
   callback(null, 'config');
 });
 
 passport.deserializeUser(function(id, callback) {
-  callback(null, module.exports.config);
+  var configPath = module.exports.configPath;
+  var user = fs.readFileSync(configPath+"_"+user.id, 'utf8');
+  callback(null, JSON.parse(user));
 });
 
-var setPassword = function() {
+var setPassword = function(user, password) {
+  var configPath = module.exports.configPath;
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync(password, salt);
+  fs.writeFileSync(configPath+"_"+user, hash);
+}
+
+getHash = function(user) {
   var config = module.exports.config;
   var configPath = module.exports.configPath;
-  var promptMsg = 'Set your new Password: ';
-  read({ prompt: promptMsg, silent: true }, function(err, password) {
-    var salt = bcrypt.genSaltSync(10);
-    module.exports.hash = bcrypt.hashSync(password, salt);
-    config.password = module.exports.hash;
-    fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
-    console.log('Password properly stored');
-  });
+  fs.readFileSync(configPath+"_"+user, hash);  
 }
 
 module.exports.configureAppServer = function(app, config, routes, callback) {
@@ -68,21 +70,14 @@ module.exports.configureAppServer = function(app, config, routes, callback) {
     }
   });
 
+  var title = "Login";
+  var css = "/css/login.css";
   app.get('/login', function (req, res, next) {
     res.send(' \
 <html> \
 <head> \
-  <title>Cozy Light Log In</title> \
-  <style type="text/css" media="screen"> \
-    @font-face { \
-      font-family: mavenpro; \
-      src: url(../signika-light.ttf); \
-    } \
-    body, p { \
-      font-family: mavenpro; \
-    } \
-  </style> \
- \
+  <title>' + title + '</title> \
+  <link href="' + css + '" rel="stylesheet"/>
 </head> \
 <body> \
   <p>Please give your password to log in:</p> \
@@ -131,9 +126,7 @@ module.exports.configure = function(options, config, program) {
   module.exports.hash = config.password;
 
   program
-    .command('set-password')
-    .description(
-        'Set basic password for the current Cozy Light instance (username ' +
-        'is always me)')
+    .command('set-password <user> <password>')
+    .description('Set password for user')
     .action(setPassword);
 };
