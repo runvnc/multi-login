@@ -2,7 +2,7 @@ var fs = require('fs');
 var read = require('read');
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;                 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
@@ -76,8 +76,10 @@ module.exports.configureAppServer = function(app, config, routes, callback) {
     res.send(' \
 <html> \
 <head> \
-  <title>' + title + '</title> \
-  <link href="' + css + '" rel="stylesheet"/> \
+  <title>' + title + ' \
+  </title> \
+  <link href="' + css + ' \
+  " rel="stylesheet"/> \
 </head> \
 <body> \
   <p>Please give your password to log in:</p> \
