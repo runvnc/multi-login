@@ -1,5 +1,4 @@
 var fs = require('fs');
-var read = require('read');
 var bcrypt = require('bcryptjs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;                 
