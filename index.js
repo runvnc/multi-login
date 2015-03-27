@@ -74,7 +74,7 @@ module.exports.configureAppServer = function(app, config, routes, callback) {
   var title = "Login";
   var css = "/css/login.css";
   app.get('/login', function (req, res, next) {
-    res.send(ui.loginPage());
+    res.send(ui.loginPage(req));
   });
 
   app.post('/login',
