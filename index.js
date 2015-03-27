@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var randomstring = require('randomstring');
 var flash = require('connect-flash');
-var jsx = require('node-jsx').install();
+var jsx = require('node-jsx').install({extension: '.jsx'});
 var ui = require('./ui');
 
 passport.use(new LocalStrategy(
