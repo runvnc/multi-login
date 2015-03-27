@@ -17,7 +17,7 @@ passport.use(new LocalStrategy(
         if(err) {
           callback(err);
         } else if(res) {
-          callback(null, {user:user});
+          callback(null, {user:username});
         } else {
           callback(null, false, { message: 'Wrong password' });
         }
