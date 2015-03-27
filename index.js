@@ -34,7 +34,7 @@ passport.serializeUser(function(user, callback) {
 
 passport.deserializeUser(function(id, callback) {
   var configPath = module.exports.configPath;
-  var user = fs.readFileSync(configPath+"_"+user.id, 'utf8');
+  var user = fs.readFileSync(configPath+"_"+id, 'utf8');
   callback(null, JSON.parse(user));
 });
 
