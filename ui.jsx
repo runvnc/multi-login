@@ -1,6 +1,6 @@
 var React = require('react');
 
-exports.loginPage = function () {
+exports.loginPage = function (title, css) {
   if (!title) title = "Login";
   if (!css) css = "/css/login.css";
   return React.renderToStaticMarkup(
