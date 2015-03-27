@@ -30,7 +30,7 @@ passport.serializeUser(function(user, callback) {
   var configPath = module.exports.configPath;
   console.log('serializeUser user  is ' + JSON.stringify(user));
   fs.writeFileSync(configPath+"_"+user.id, JSON.stringify(user));
-  callback(null, 'config');
+  callback(null, user.id);
 });
 
 passport.deserializeUser(function(id, callback) {
