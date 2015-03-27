@@ -77,7 +77,7 @@ module.exports.configureAppServer = function(app, config, routes, callback) {
 <html> \
 <head> \
   <title>' + title + '</title> \
-  <link href="' + css + '" rel="stylesheet"/>
+  <link href="' + css + '" rel="stylesheet"/> \
 </head> \
 <body> \
   <p>Please give your password to log in:</p> \
